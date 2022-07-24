@@ -14,7 +14,7 @@ export const SimpleModal: React.FC<{
   onClose?: () => void;
   onOk?: () => Promise<void>;
   onBack?: () => void;
-  header: string;
+  header: string | React.ReactNode;
   subHeader?: string;
   okLabel: string;
   okDisabled?: boolean;
@@ -41,9 +41,13 @@ export const SimpleModal: React.FC<{
     <Box sx={{ ...modalStyle, ...sx }}>
       {displayErrorIcon && <ErrorOutline color="error" sx={{ mb: 3 }} />}
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography fontSize={20} fontWeight={600} sx={{ color: 'text.primary', ...headerStyles }}>
-          {header}
-        </Typography>
+        {typeof header === 'string' ? (
+          <Typography fontSize={20} fontWeight={600} sx={{ color: 'text.primary', ...headerStyles }}>
+            {header}
+          </Typography>
+        ) : (
+          header
+        )}
         {!hideCloseIcon && <CloseIcon onClick={onClose} cursor="pointer" />}
       </Stack>
       {subHeader && (
@@ -62,9 +66,11 @@ export const SimpleModal: React.FC<{
 
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 2 }}>
         {onBack && <StyledBackButton onBack={onBack} />}
-        <Button variant="contained" fullWidth size="large" onClick={onOk} disabled={okDisabled}>
-          {okLabel}
-        </Button>
+        {onOk && (
+          <Button variant="contained" fullWidth size="large" onClick={onOk} disabled={okDisabled}>
+            {okLabel}
+          </Button>
+        )}
       </Box>
     </Box>
   </Modal>

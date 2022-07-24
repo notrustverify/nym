@@ -245,13 +245,6 @@ export const getDesignTokens = (mode: PaletteMode): ThemeOptions => {
       },
     },
     components: {
-      MuiTypography: {
-        styleOverrides: {
-          root: {
-            fontSize: 14,
-          },
-        },
-      },
       MuiButton: {
         styleOverrides: {
           root: {
